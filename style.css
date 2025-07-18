@@ -46,3 +46,129 @@ body {
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+#howToPlayBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff6b6b;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#howToPlayBtn:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff8e1;
+    margin: 5% auto;
+    padding: 30px;
+    border: 3px solid #ff6b6b;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    position: relative;
+}
+
+.close {
+    color: #ff6b6b;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close:hover {
+    color: #ff5252;
+}
+
+/* Instructions content styling */
+#instructionsContent h1 {
+    color: #ff6b6b;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+#instructionsContent h2 {
+    color: #4a90e2;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+#instructionsContent h3 {
+    color: #7b68ee;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+#instructionsContent p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #333;
+}
+
+#instructionsContent ul {
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+#instructionsContent li {
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #333;
+}
+
+#instructionsContent strong {
+    color: #ff6b6b;
+}
+
+/* Scrollbar styling for instructions */
+#instructionsContent::-webkit-scrollbar {
+    width: 10px;
+}
+
+#instructionsContent::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#instructionsContent::-webkit-scrollbar-thumb {
+    background: #ff6b6b;
+    border-radius: 10px;
+}
+
+#instructionsContent::-webkit-scrollbar-thumb:hover {
+    background: #ff5252;
+}
