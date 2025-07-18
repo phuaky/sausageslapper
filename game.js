@@ -126,12 +126,13 @@ function attemptSlap() {
     
     if (sausageDist < 150) {
         // Successful sausage slap!
-        sausage.size *= 1.1;
+        sausage.size *= 1.05; // Smaller size increase
+        sausage.segments += 1; // Add a segment to make it longer!
         
-        // Launch sausage away from hand
+        // Launch sausage away from hand (slower speed)
         const angle = Math.atan2(sausage.y - handPosition.y, sausage.x - handPosition.x);
-        sausage.vx = Math.cos(angle) * 8;
-        sausage.vy = Math.sin(angle) * 8;
+        sausage.vx = Math.cos(angle) * 3;
+        sausage.vy = Math.sin(angle) * 3;
         
         // Create particles
         createParticles(sausage.x, sausage.y, 'sausage');
@@ -210,9 +211,12 @@ function update() {
         sausage.y = sausage.y < 0 ? canvas.height + sausage.size : -sausage.size;
     }
     
-    // Shrink if off screen
+    // Shrink if off screen (reduced penalty)
     if (offScreen) {
-        sausage.size *= 0.85;
+        sausage.size *= 0.95; // Only shrink by 5% instead of 15%
+        if (sausage.segments > 5) {
+            sausage.segments -= 1; // Lose a segment when going off screen
+        }
         sizeDisplay.textContent = Math.floor(sausage.size);
     }
     
@@ -335,15 +339,18 @@ function drawSausage() {
     ctx.translate(sausage.x, sausage.y);
     ctx.rotate(sausage.rotation);
     
+    // Calculate total length based on segments
+    const totalLength = sausage.size + (sausage.segments - 5) * 10; // Base size + extra length per segment
+    
     // Draw sausage body segments
-    const segmentLength = sausage.size / sausage.segments;
+    const segmentLength = totalLength / sausage.segments;
     for (let i = 0; i < sausage.segments; i++) {
         const wobbleOffset = Math.sin(sausage.wobble + i * 0.5) * 5;
         
         ctx.fillStyle = i % 2 === 0 ? '#8B4513' : '#A0522D';
         ctx.beginPath();
         ctx.ellipse(
-            -sausage.size / 2 + segmentLength * i + segmentLength / 2,
+            -totalLength / 2 + segmentLength * i + segmentLength / 2,
             wobbleOffset,
             segmentLength / 2 + 2,
             sausage.size * 0.3,
@@ -355,21 +362,21 @@ function drawSausage() {
     // Draw face
     ctx.fillStyle = 'white';
     ctx.beginPath();
-    ctx.arc(sausage.size / 2 - 15, -10, 8, 0, Math.PI * 2);
-    ctx.arc(sausage.size / 2 - 15, 10, 8, 0, Math.PI * 2);
+    ctx.arc(totalLength / 2 - 15, -10, 8, 0, Math.PI * 2);
+    ctx.arc(totalLength / 2 - 15, 10, 8, 0, Math.PI * 2);
     ctx.fill();
     
     ctx.fillStyle = 'black';
     ctx.beginPath();
-    ctx.arc(sausage.size / 2 - 15, -10, 4, 0, Math.PI * 2);
-    ctx.arc(sausage.size / 2 - 15, 10, 4, 0, Math.PI * 2);
+    ctx.arc(totalLength / 2 - 15, -10, 4, 0, Math.PI * 2);
+    ctx.arc(totalLength / 2 - 15, 10, 4, 0, Math.PI * 2);
     ctx.fill();
     
     // Draw smile
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(sausage.size / 2 - 15, 0, 15, 0.2, Math.PI - 0.2);
+    ctx.arc(totalLength / 2 - 15, 0, 15, 0.2, Math.PI - 0.2);
     ctx.stroke();
     
     ctx.restore();
@@ -487,6 +494,7 @@ function resetGame() {
     sausage.x = canvas.width / 2;
     sausage.y = canvas.height / 2;
     sausage.size = 50;
+    sausage.segments = 5; // Reset segments
     sausage.vx = 2 + Math.random() * 2;
     sausage.vy = 1 + Math.random() * 2;
     particles.length = 0;
