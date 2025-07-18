@@ -11,6 +11,14 @@
         <canvas id="gameCanvas"></canvas>
         <div id="sizeDisplay">Size: <span id="sausageSize">50</span></div>
         <div id="mouthDisplay">Mouths: <span id="mouthCount">1</span></div>
+        <button id="howToPlayBtn" onclick="toggleInstructions()">How to Play</button>
+    </div>
+    
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleInstructions()">&times;</span>
+            <div id="instructionsContent"></div>
+        </div>
     </div>
     <script src="game.js"></script>
 </body>
